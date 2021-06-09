@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 class ShoeModel with ChangeNotifier {
-  String _assetImage = 'asset/image/azul.png';
+  String _assetImage = 'assets/images/azul.png';
   double _size = 9.0;
 
   String get assetImage => this._assetImage;

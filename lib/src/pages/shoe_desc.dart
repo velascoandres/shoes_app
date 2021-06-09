@@ -1,10 +1,14 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shoes_app/src/helpers/helpers.dart';
+import 'package:shoes_app/src/models/shoe_model.dart';
 import 'package:shoes_app/src/widgets/custom_widgets.dart';
 
-class ShowDescPage extends StatelessWidget {
+class ShoeDescPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    changeStatusLight();
     return Scaffold(
       body: Column(
         children: [
@@ -21,6 +25,7 @@ class ShowDescPage extends StatelessWidget {
                   highlightElevation: 0,
                   backgroundColor: Colors.transparent,
                   onPressed: () {
+                    changeStatusDark();
                     Navigator.pop(context);
                   },
                   child: Icon(
@@ -122,17 +127,33 @@ class _AvalaibleColors extends StatelessWidget {
               children: [
                 Positioned(
                   left: 90,
-                  child: _ColorButton(color: Color(0xffC6D642), index: 1),
+                  child: _ColorButton(
+                    color: Color(0xffC6D642),
+                    index: 1,
+                    assetPath: 'assets/images/verde.png',
+                  ),
                 ),
                 Positioned(
                   left: 60,
-                  child: _ColorButton(color: Color(0xffFFAD29), index: 2),
+                  child: _ColorButton(
+                    color: Color(0xffFFAD29),
+                    index: 2,
+                    assetPath: 'assets/images/amarillo.png',
+                  ),
                 ),
                 Positioned(
                   left: 30,
-                  child: _ColorButton(color: Color(0xff2099F1), index: 3),
+                  child: _ColorButton(
+                    color: Color(0xff2099F1),
+                    index: 3,
+                    assetPath: 'assets/images/azul.png',
+                  ),
                 ),
-                _ColorButton(color: Color(0xff364D56), index: 4),
+                _ColorButton(
+                  color: Color(0xff364D56),
+                  index: 4,
+                  assetPath: 'assets/images/negro.png',
+                ),
               ],
             ),
           ),
@@ -151,21 +172,32 @@ class _AvalaibleColors extends StatelessWidget {
 class _ColorButton extends StatelessWidget {
   final Color color;
   final int index;
+  final String assetPath;
 
-  const _ColorButton({Key? key, required this.color, required this.index})
-      : super(key: key);
+  const _ColorButton({
+    Key? key,
+    required this.color,
+    required this.index,
+    required this.assetPath,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return FadeInLeft(
-      delay: Duration(milliseconds: this.index * 100),
-      duration: Duration(milliseconds: 300),
-      child: Container(
-        width: 45,
-        height: 45,
-        decoration: BoxDecoration(
-          color: this.color,
-          shape: BoxShape.circle,
+    return GestureDetector(
+      onTap: () {
+        final shoeModel = Provider.of<ShoeModel>(context, listen: false);
+        shoeModel.assetImage = this.assetPath;
+      },
+      child: FadeInLeft(
+        delay: Duration(milliseconds: this.index * 100),
+        duration: Duration(milliseconds: 300),
+        child: Container(
+          width: 45,
+          height: 45,
+          decoration: BoxDecoration(
+            color: this.color,
+            shape: BoxShape.circle,
+          ),
         ),
       ),
     );

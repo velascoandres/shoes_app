@@ -15,7 +15,7 @@ class ShoeSizePreview extends StatelessWidget {
         if (!this.fullScreen) {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (_) => ShowDescPage()),
+            MaterialPageRoute(builder: (_) => ShoeDescPage()),
           );
         }
       },
@@ -53,6 +53,9 @@ class ShoeSizePreview extends StatelessWidget {
 class _ShoeShadow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
+    final shoeModel = Provider.of<ShoeModel>(context);
+
     return Padding(
       padding: const EdgeInsets.all(50),
       child: Stack(
@@ -62,7 +65,7 @@ class _ShoeShadow extends StatelessWidget {
             bottom: 20,
             right: 0,
           ),
-          Image(image: AssetImage('assets/images/azul.png'))
+          Image(image: AssetImage('${shoeModel.assetImage}'))
         ],
       ),
     );
