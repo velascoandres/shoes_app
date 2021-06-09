@@ -1,16 +1,17 @@
-# shoes_app
+# Shoes App
 
-A new Flutter project.
+## Shoe initial Page
 
-## Getting Started
+![init](https://raw.githubusercontent.com/velascoandres/shoes_app/main/screenshots/init.png)
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## Shoe Detail
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+![detail](https://raw.githubusercontent.com/velascoandres/shoes_app/main/screenshots/detail.png)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+## Demo
+
+
+![demo](https://raw.githubusercontent.com/velascoandres/shoes_app/main/demo/demo.gif)
+
