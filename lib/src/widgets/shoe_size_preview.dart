@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shoes_app/src/models/shoe_model.dart';
+import 'package:shoes_app/src/pages/shoe_desc.dart';
 
 class ShoeSizePreview extends StatelessWidget {
   final bool fullScreen;
@@ -7,30 +10,40 @@ class ShoeSizePreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: fullScreen ? 5 : 30,
-        vertical: fullScreen ? 5 : 0,
-      ),
-      child: Container(
-        width: double.infinity,
-        height: 430,
-        decoration: BoxDecoration(
-          color: Color(0xffFFCF53),
-          borderRadius: (fullScreen)
-              ? BorderRadius.only(
-                  bottomLeft: Radius.circular(50),
-                  bottomRight: Radius.circular(50),
-                  topLeft: Radius.circular(40),
-                  topRight: Radius.circular(40),
-                )
-              : BorderRadius.circular(50),
+    return GestureDetector(
+      onTap: () {
+        if (!this.fullScreen) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => ShowDescPage()),
+          );
+        }
+      },
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: fullScreen ? 5 : 30,
+          vertical: fullScreen ? 5 : 0,
         ),
-        child: Column(
-          children: [
-            _ShoeShadow(),
-            if (!fullScreen) _Sizes(),
-          ],
+        child: Container(
+          width: double.infinity,
+          height: 430,
+          decoration: BoxDecoration(
+            color: Color(0xffFFCF53),
+            borderRadius: (fullScreen)
+                ? BorderRadius.only(
+                    bottomLeft: Radius.circular(50),
+                    bottomRight: Radius.circular(50),
+                    topLeft: Radius.circular(40),
+                    topRight: Radius.circular(40),
+                  )
+                : BorderRadius.circular(50),
+          ),
+          child: Column(
+            children: [
+              _ShoeShadow(),
+              if (!fullScreen) _Sizes(),
+            ],
+          ),
         ),
       ),
     );
@@ -87,10 +100,7 @@ class _Sizes extends StatelessWidget {
           _SizeBox(size: 7.5),
           _SizeBox(size: 8.0),
           _SizeBox(size: 8.5),
-          _SizeBox(
-            size: 9.0,
-            selected: true,
-          ),
+          _SizeBox(size: 9.0),
           _SizeBox(size: 9.5),
         ],
       ),
@@ -100,35 +110,44 @@ class _Sizes extends StatelessWidget {
 
 class _SizeBox extends StatelessWidget {
   final double size;
-  final bool selected;
 
-  _SizeBox({required this.size, this.selected = false});
+  _SizeBox({required this.size});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      width: 45,
-      height: 45,
-      child: Text(
-        '${size.toString().replaceAll('.0', '')}',
-        style: TextStyle(
-          color: selected ? Colors.white : Color(0xffF1A23A),
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
+    final shoeModel = Provider.of<ShoeModel>(context);
+
+    final selected = shoeModel.size == this.size;
+
+    return GestureDetector(
+      onTap: () {
+        final shoeModel = Provider.of<ShoeModel>(context, listen: false);
+        shoeModel.size = this.size;
+      },
+      child: Container(
+        alignment: Alignment.center,
+        width: 45,
+        height: 45,
+        child: Text(
+          '${size.toString().replaceAll('.0', '')}',
+          style: TextStyle(
+            color: selected ? Colors.white : Color(0xffF1A23A),
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
         ),
-      ),
-      decoration: BoxDecoration(
-        color: selected ? Color(0xffEAA14E) : Colors.white,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          if (selected)
-            BoxShadow(
-              color: Color(0xffEAA14E),
-              blurRadius: 10,
-              offset: Offset(0, 5),
-            ),
-        ],
+        decoration: BoxDecoration(
+          color: selected ? Color(0xffEAA14E) : Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            if (selected)
+              BoxShadow(
+                color: Color(0xffEAA14E),
+                blurRadius: 10,
+                offset: Offset(0, 5),
+              ),
+          ],
+        ),
       ),
     );
   }

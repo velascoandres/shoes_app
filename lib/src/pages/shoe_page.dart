@@ -14,7 +14,10 @@ class ShoePage extends StatelessWidget {
               physics: BouncingScrollPhysics(),
               child: Column(
                 children: [
-                  ShoeSizePreview(),
+                  Hero(
+                    tag: 'shoe-1',
+                    child: ShoeSizePreview(),
+                  ),
                   ShoeDetail(
                     title: 'Nike Air Max 720',
                     description:
